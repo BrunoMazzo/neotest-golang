@@ -1,5 +1,5 @@
 --- Helper functions building the command to execute.
-
+local nio = require("nio")
 local async = require("neotest.async")
 
 local logger = require("neotest-golang.logging")
@@ -16,11 +16,11 @@ function M.golist_data(cwd)
   logger.info("Running Go list: " .. go_list_command_concat .. " in " .. cwd)
   -- local result = vim.system(cmd, { cwd = cwd, text = true }):wait()
 
-  local process = async.process.run({cmd = go_list_command_concat })
-  local result = process.stdout.read()
+  local result = nio.process.run({cmd = go_list_command_concat , cwd = cwd})
+  local command_return_code = result.result()
 
   local err = nil
-  if result.code == 1 then
+  if command_return_code == 1 then
     err = "go list:"
     if result.stdout ~= nil and result.stdout ~= "" then
       err = err .. " " .. result.stdout
