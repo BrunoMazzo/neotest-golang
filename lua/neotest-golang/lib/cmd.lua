@@ -14,8 +14,7 @@ function M.golist_data(cwd)
   local cmd = M.golist_command()
   local go_list_command_concat = table.concat(cmd, " ")
   logger.info("Running Go list: " .. go_list_command_concat .. " in " .. cwd)
-  -- local result = vim.system(cmd, { cwd = cwd, text = true }):wait()
-  local result = nio.process.run({cmd = "go", args = { "list", "-json", "./..." }  , cwd = cwd})
+  local result = nio.process.run({cmd = table.remove(cmd, 1), args = cmd , cwd = cwd})
 
   local output = result.stdout.read()
 
