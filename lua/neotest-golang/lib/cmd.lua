@@ -15,7 +15,7 @@ function M.golist_data(cwd)
   local go_list_command_concat = table.concat(cmd, " ")
   logger.info("Running Go list: " .. go_list_command_concat .. " in " .. cwd)
   -- local result = vim.system(cmd, { cwd = cwd, text = true }):wait()
-
+vim.notify(go_list_command_concat, vim.log.levels.INFO)
   local result = nio.process.run({cmd = go_list_command_concat , cwd = cwd})
   vim.notify(result, vim.log.levels.INFO)
   local command_return_code = result.result()
