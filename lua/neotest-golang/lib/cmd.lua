@@ -15,7 +15,9 @@ function M.golist_data(cwd)
   local go_list_command_concat = table.concat(cmd, " ")
   logger.info("Running Go list: " .. go_list_command_concat .. " in " .. cwd)
   -- local result = vim.system(cmd, { cwd = cwd, text = true }):wait()
-    local result = async.process.run({cmd = go_list_command_concat }).stdout.read()
+
+  local process = async.process.run({cmd = go_list_command_concat })
+  local result = process.stdout.read()
 
   local err = nil
   if result.code == 1 then
