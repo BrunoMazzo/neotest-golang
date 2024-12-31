@@ -18,11 +18,9 @@ function M.golist_data(cwd)
   local result = nio.process.run({cmd = "go", args = { "list", "-json", "./..." }  , cwd = cwd})
 
   local output = result.stdout.read()
-    logger.info("output: " .. output)
 
 local error = result.stderr.read()
 
-  logger.info("error: " .. error)
   local command_return_code = result.result()
   local err = nil
   if command_return_code == 1 then

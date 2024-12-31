@@ -17,6 +17,7 @@ function M.decode_from_table(tbl, construct_invalid)
         table.insert(jsonlines, json_data)
       else
         -- NOTE: this can be hit because of "Vim:E474: Unidentified byte: ..."
+         logger.warn("Failed to decode JSON status: " .. status)
         logger.warn("Failed to decode JSON line: " .. line)
       end
     else
