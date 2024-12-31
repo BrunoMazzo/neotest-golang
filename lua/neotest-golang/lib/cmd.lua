@@ -16,13 +16,14 @@ function M.golist_data(cwd)
   logger.info("Running Go list: " .. go_list_command_concat .. " in " .. cwd)
   -- local result = vim.system(cmd, { cwd = cwd, text = true }):wait()
   local result = nio.process.run({cmd = "go", args = { "list", "-json", "./..." }  , cwd = cwd})
-  local command_return_code = result.result()
 
   local output = result.stdout.read()
+    logger.info("output: " .. output)
+
 local error = result.stderr.read()
 
-  logger.info("output: " .. output)
   logger.info("error: " .. error)
+  local command_return_code = result.result()
   local err = nil
   if command_return_code == 1 then
     err = "go list:"
