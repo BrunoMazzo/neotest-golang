@@ -17,6 +17,7 @@ function M.golist_data(cwd)
   -- local result = vim.system(cmd, { cwd = cwd, text = true }):wait()
 
   local result = nio.process.run({cmd = go_list_command_concat , cwd = cwd})
+  vim.notify(result, vim.log.levels.INFO)
   local command_return_code = result.result()
 
   local err = nil
