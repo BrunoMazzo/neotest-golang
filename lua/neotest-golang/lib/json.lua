@@ -1,6 +1,7 @@
 --- JSON processing helpers.
 
 local logger = require("neotest-golang.logging")
+local nio = require("nio")
 
 local M = {}
 
@@ -11,6 +12,7 @@ local M = {}
 function M.decode_from_table(tbl, construct_invalid)
   local jsonlines = {}
   for _, line in ipairs(tbl) do
+    nio.sleep(0)
     if string.match(line, "^%s*{") then -- must start with the `{` character
       local status, json_data = pcall(vim.json.decode, line)
       if status then
@@ -38,6 +40,7 @@ function M.decode_from_string(str)
   local tbl = {}
   local current_object = ""
   for line in str:gmatch("[^\r\n]+") do
+    nio.sleep(0)
     if line:match("^%s*{") and current_object ~= "" then
       table.insert(tbl, current_object)
       current_object = ""
