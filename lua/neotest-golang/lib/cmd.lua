@@ -17,7 +17,7 @@ function M.golist_data(cwd)
   -- local result = vim.system(cmd, { cwd = cwd, text = true }):wait()
   local result = nio.process.run({cmd = "go", args = { "list", "-json", "./..." }  , cwd = cwd})
 
-  local output = string.gsub(result.stdout.read(), "\t", "")
+  local output = result.stdout.read()
 
 local error = result.stderr.read()
 
