@@ -20,6 +20,9 @@ function M.golist_data(cwd)
 
   local output = result.stdout.read()
 local error = result.stderr.read()
+
+  logger.info("output: " .. output)
+  logger.info("error: " .. error)
   local err = nil
   if command_return_code == 1 then
     err = "go list:"
