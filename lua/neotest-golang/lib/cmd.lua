@@ -34,8 +34,9 @@ local error = result.stderr.read()
     logger.warn({ "Go list error: ", err })
   end
 
-
+  logger.info("Starting decode")
   local golist_output = json.decode_from_string(output)
+  logger.info("Ended decode")
   logger.debug({ "JSON-decoded 'go list' output: ", golist_output })
   return golist_output, err
 end
