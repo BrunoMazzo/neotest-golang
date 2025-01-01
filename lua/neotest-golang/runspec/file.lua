@@ -3,6 +3,7 @@
 local logger = require("neotest-golang.logging")
 local lib = require("neotest-golang.lib")
 local dap = require("neotest-golang.features.dap")
+local nio = require("nio")
 
 local M = {}
 
@@ -41,6 +42,7 @@ function M.build(pos, tree, strategy)
   local pos_path_foldername = vim.fn.fnamemodify(pos.path, ":h")
 
   for _, golist_item in ipairs(golist_data) do
+    nio.sleep(0)
     if golist_item.TestGoFiles ~= nil then
       if
         pos_path_foldername == golist_item.Dir
