@@ -22,6 +22,7 @@ local opts = {
 
   -- experimental, for now undocumented, options
   dev_notifications = false,
+  env = {}
 }
 
 function M.setup(user_opts)
