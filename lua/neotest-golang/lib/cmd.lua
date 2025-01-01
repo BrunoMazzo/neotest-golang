@@ -15,15 +15,9 @@ function M.golist_data(cwd)
   local go_list_command_concat = table.concat(cmd, " ")
   logger.info("Running Go list: " .. go_list_command_concat .. " in " .. cwd)
   local result = nio.process.run({cmd = table.remove(cmd, 1), args = cmd , cwd = cwd})
-
-  local output = ""
-
-    while true do
-      local line = result.stdout.read(1024)
-      if line == nil then break end
-      output = output .. line
-    end
-
+logger.info("Starting reading output")
+  local output = result.stdout.read()
+logger.info("Ended reading output")
 local error = result.stderr.read()
 
   local command_return_code = result.result()
@@ -42,7 +36,7 @@ local error = result.stderr.read()
 
   logger.info("Starting decode")
   local golist_output = json.decode_from_string(output)
-  logger.info("Ended decode")
+  logger.info("Starting decode")
   logger.debug({ "JSON-decoded 'go list' output: ", golist_output })
   return golist_output, err
 end
