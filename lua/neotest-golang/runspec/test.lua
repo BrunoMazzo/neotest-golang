@@ -56,7 +56,7 @@ function M.build(pos, strategy)
     command = test_cmd,
     cwd = test_folder_absolute_path,
     context = context,
-    env = opts.env, 
+    env = opts.get().env,
   }
 
   if runspec_strategy ~= nil then
