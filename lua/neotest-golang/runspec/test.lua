@@ -3,7 +3,7 @@
 local logger = require("neotest-golang.logging")
 local lib = require("neotest-golang.lib")
 local dap = require("neotest-golang.features.dap")
-local opts = require("neptest-golang.options")
+local opts = require("neotest-golang.options")
 
 local M = {}
 
