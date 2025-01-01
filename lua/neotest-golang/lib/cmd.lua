@@ -16,7 +16,13 @@ function M.golist_data(cwd)
   logger.info("Running Go list: " .. go_list_command_concat .. " in " .. cwd)
   local result = nio.process.run({cmd = table.remove(cmd, 1), args = cmd , cwd = cwd})
 
-  local output = result.stdout.read()
+  local output = ""
+
+    while true do
+      local line = result.stdout.read(1024)
+      if line == nil then break end
+      output = output .. line
+    end
 
 local error = result.stderr.read()
 
