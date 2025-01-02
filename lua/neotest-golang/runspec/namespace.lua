@@ -2,6 +2,7 @@
 
 local logger = require("neotest-golang.logging")
 local lib = require("neotest-golang.lib")
+local opts = require("neotest-golang.options")
 
 local M = {}
 
@@ -44,6 +45,7 @@ function M.build(pos)
     command = test_cmd,
     cwd = test_folder_absolute_path,
     context = context,
+    env = opts.get().env,
   }
 
   logger.debug({ "RunSpec:", run_spec })
