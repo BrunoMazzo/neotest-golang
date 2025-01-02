@@ -16,9 +16,7 @@ function M.decode_from_table(tbl, construct_invalid)
     if string.match(line, "^%s*{") then -- must start with the `{` character
       local status, json_data = pcall(vim.json.decode, line)
       if status then
-        if json_data.TestGoFiles ~= nil or json_data.XTestGoFiles ~= nil then
         table.insert(jsonlines, json_data)
-        end
       else
         -- NOTE: this can be hit because of "Vim:E474: Unidentified byte: ..."
         logger.warn("Failed to decode JSON line: " .. line)
