@@ -43,8 +43,8 @@ function M.decode_godata_from_table(tbl, construct_invalid, dir)
     nio.sleep(0)
     if string.match(line, "^%s*{") then -- must start with the `{` character
       local status, json_data = pcall(vim.json.decode, line)
-      if status and json_data.Dir == dir then
-        if json_data.TestGoFiles ~= nil or json_data.XTestGoFiles ~= nil then
+      if status  then
+        if json_data.Dir == dir and (json_data.TestGoFiles ~= nil or json_data.XTestGoFiles ~= nil) then
         table.insert(jsonlines, json_data)
         end
       else
