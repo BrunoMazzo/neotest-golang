@@ -18,6 +18,14 @@ function M.build(pos, tree, strategy)
     return M.return_skipped(pos)
   end
 
+  local go_mod_filepath = lib.find.file_upwards("go.mod", pos.path)
+  if go_mod_filepath == nil then
+    logger.error(
+      "The selected file does not appear to be part of a valid Go module (no go.mod file found)."
+    )
+    return nil -- NOTE: logger.error will throw an error, but the LSP doesn't see it.
+  end
+
   -- find the go package that corresponds to the pos.path
   local package_name = "./..."
   local pos_path_filename = vim.fn.fnamemodify(pos.path, ":t")
@@ -88,7 +96,7 @@ function M.build(pos, tree, strategy)
   --- @type neotest.RunSpec
   local run_spec = {
     command = test_cmd,
-    cwd = go_mod_folderpath,
+    cwd = pos_path_foldername,
     context = context,
     env = opts.get().env,
   }
