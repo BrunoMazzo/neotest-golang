@@ -35,7 +35,7 @@ local error = result.stderr.read()
   end
 
   logger.info("Starting decode")
-  local golist_output = json.decode_godata_from_string(output)
+  local golist_output = json.decode_godata_from_string(output, cwd)
   logger.info("Starting decode")
   logger.debug({ "JSON-decoded 'go list' output: ", golist_output })
   return golist_output, err
