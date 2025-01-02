@@ -26,8 +26,9 @@ function M.build(pos, tree, strategy)
     return nil -- NOTE: logger.error will throw an error, but the LSP doesn't see it.
   end
 
+  local pos_path_foldername = vim.fn.fnamemodify(pos.path, ":h")
   local go_mod_folderpath = vim.fn.fnamemodify(go_mod_filepath, ":h")
-  local golist_data, golist_error = lib.cmd.golist_data(go_mod_folderpath)
+  local golist_data, golist_error = lib.cmd.golist_data(pos_path_foldername)
 
   local errors = nil
   if golist_error ~= nil then
@@ -40,7 +41,6 @@ function M.build(pos, tree, strategy)
   -- find the go package that corresponds to the pos.path
   local package_name = "./..."
   local pos_path_filename = vim.fn.fnamemodify(pos.path, ":t")
-  local pos_path_foldername = vim.fn.fnamemodify(pos.path, ":h")
 
   for _, golist_item in ipairs(golist_data) do
     nio.sleep(0)
