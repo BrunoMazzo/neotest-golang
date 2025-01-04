@@ -3,6 +3,7 @@
 local logger = require("neotest-golang.logging")
 local lib = require("neotest-golang.lib")
 local dap = require("neotest-golang.features.dap")
+local opts = require("neotest-golang.options")
 
 local M = {}
 
@@ -96,6 +97,7 @@ function M.build(pos, tree, strategy)
     command = test_cmd,
     cwd = go_mod_folderpath,
     context = context,
+    env = opts.get().env
   }
 
   if runspec_strategy ~= nil then
